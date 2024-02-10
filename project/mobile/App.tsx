@@ -1,7 +1,4 @@
-import axios from "axios";
-import { StatusBar } from "expo-status-bar";
-import moment from "moment";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Dimensions,
   FlatList,
@@ -12,8 +9,10 @@ import {
   Text,
   View,
 } from "react-native";
+import axios from "axios";
+import moment from "moment";
 
-const Item = ({ value }: any) => (
+const Item = React.memo(({ value }: { value: Post }) => (
   <View style={styles.row}>
     <View style={styles.profileContainer}>
       <Image
@@ -33,11 +32,11 @@ const Item = ({ value }: any) => (
     </View>
     <Image
       source={{ uri: `https://picsum.photos/id/${value?.id + 150}/200` }}
-      resizeMode="contain"
+      resizeMode="cover"
       style={styles.image}
     />
   </View>
-);
+));
 
 interface Post {
   id: number;
@@ -102,21 +101,18 @@ export default function App() {
     fetchData();
   }, [limit]);
 
-  const renderItem = ({ item }: any) => <Item value={item} />;
+  const renderItem = ({ item }: { item: Post }) => <Item value={item} />;
 
   return (
     <SafeAreaView style={styles.safeareaview}>
       <View style={styles.container}>
-        <StatusBar style="light" />
         <View style={styles.top}>
-          <Text style={styles.hOne}>
-            SUPER MOVIES {listOfPosts.length} {limit}
-          </Text>
+          <Text style={styles.hOne}>SUPER MOVIES</Text>
         </View>
         <FlatList
           data={listOfPosts}
           renderItem={renderItem}
-          keyExtractor={(item: any) => item?.id.toString()}
+          keyExtractor={(item: Post) => item?.id.toString()}
           showsVerticalScrollIndicator={false}
           style={styles.flatlist}
           contentContainerStyle={{ alignItems: "center" }}
@@ -175,7 +171,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.48,
     shadowRadius: 11.95,
-
     elevation: 18,
   },
   title: {
@@ -197,9 +192,9 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   image: {
-    width: 250,
+    width: "90%",
     height: 250,
-    borderRadius: 30,
+    borderRadius: 60,
     borderWidth: 2,
     borderColor: "navy",
   },
