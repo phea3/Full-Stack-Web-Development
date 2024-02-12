@@ -8,10 +8,15 @@ function Home() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:3001/posts").then((res) => {
-      // console.log("respose", res?.data);
-      setListOfPosts(res?.data);
-    });
+    axios
+      .get("http://192.168.2.7:3001/posts")
+      .then((res) => {
+        // console.log("respose", res?.data);
+        setListOfPosts(res?.data);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
   }, []);
   return (
     <div>
