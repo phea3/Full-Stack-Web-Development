@@ -3,6 +3,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  Platform,
   RefreshControl,
   SafeAreaView,
   StyleSheet,
@@ -24,7 +25,6 @@ interface Post {
 export default function Home() {
   const [listOfPosts, setListOfPosts] = useState<Post[]>([]);
   const [refreshing, setRefreshing] = useState(false);
-  const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const [limit, setLimit] = useState(3); // Change this value as per your requirement
   const navigate = useNavigate();
@@ -120,20 +120,22 @@ export default function Home() {
         <View style={styles.top}>
           <Text style={styles.hOne}>SUPER MOVIES</Text>
         </View>
-        <FlatList
-          data={listOfPosts}
-          renderItem={renderItem}
-          keyExtractor={(item: Post) => item?.id.toString()}
-          showsVerticalScrollIndicator={false}
-          style={styles.flatlist}
-          contentContainerStyle={{ alignItems: "center" }}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          onEndReached={handleLoadMore}
-          onEndReachedThreshold={0.1}
-          ListFooterComponent={loadingMore ? <Text>Loading...</Text> : null}
-        />
+        <View style={{ flex: 1 }}>
+          <FlatList
+            data={listOfPosts}
+            renderItem={renderItem}
+            keyExtractor={(item: Post) => item?.id.toString()}
+            showsVerticalScrollIndicator={false}
+            style={styles.flatlist}
+            contentContainerStyle={{ alignItems: "center" }}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            onEndReached={handleLoadMore}
+            onEndReachedThreshold={0.1}
+            ListFooterComponent={loadingMore ? <Text>Loading...</Text> : null}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -142,7 +144,8 @@ export default function Home() {
 const styles = StyleSheet.create({
   safeareaview: {
     flex: 1,
-    backgroundColor: "maroon",
+    backgroundColor: "azure",
+    paddingTop: Platform.OS === "android" ? 35 : 0, // Adjust this value as needed
   },
   top: {
     width: "100%",
@@ -150,14 +153,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   hOne: {
-    fontFamily: "Helvetica-Bold",
     color: "maroon",
     fontSize: 24,
     textAlign: "center",
   },
   container: {
     flex: 1,
-    backgroundColor: "lightcoral",
+    backgroundColor: "azure",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -185,19 +187,16 @@ const styles = StyleSheet.create({
     elevation: 18,
   },
   title: {
-    fontFamily: "Helvetica-Bold",
     color: "green",
     fontSize: 16,
     textAlign: "left",
   },
   body: {
-    fontFamily: "Helvetica",
     color: "black",
     fontSize: 14,
     textAlign: "left",
   },
   username: {
-    fontFamily: "Helvetica",
     color: "darkslategrey",
     fontSize: 12,
     textAlign: "left",

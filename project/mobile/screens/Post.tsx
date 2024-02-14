@@ -167,7 +167,8 @@ export default function Post() {
 const styles = StyleSheet.create({
   safeareaview: {
     flex: 1,
-    backgroundColor: "maroon",
+    backgroundColor: "azure",
+    paddingTop: Platform.OS === "android" ? 35 : 0, // Adjust this value as needed
   },
   keyboardavoidingview: {
     flex: 1,
@@ -178,18 +179,18 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   bodyContainer: {
+    backgroundColor: "azure",
     flex: 1,
     paddingTop: 10,
   },
   back: {
-    fontFamily: "Helvetica-Bold",
     color: "maroon",
     fontSize: 14,
     textAlign: "left",
   },
   container: {
     flex: 1,
-    backgroundColor: "lightcoral",
+    backgroundColor: "azure",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -238,13 +239,11 @@ const styles = StyleSheet.create({
     elevation: 18,
   },
   commentText: {
-    fontFamily: "Helvetica-Bold",
     color: "black",
     fontSize: 14,
     textAlign: "left",
   },
   commentTextList: {
-    fontFamily: "Helvetica-Bold",
     color: "black",
     fontSize: 14,
     textAlign: "left",
@@ -287,24 +286,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   submitText: {
-    fontFamily: "Helvetica-Bold",
     color: "white",
     fontSize: 14,
   },
   title: {
-    fontFamily: "Helvetica-Bold",
     color: "green",
     fontSize: 16,
     textAlign: "left",
   },
   body: {
-    fontFamily: "Helvetica",
     color: "black",
     fontSize: 14,
     textAlign: "left",
   },
   username: {
-    fontFamily: "Helvetica",
     color: "darkslategrey",
     fontSize: 12,
     textAlign: "left",
