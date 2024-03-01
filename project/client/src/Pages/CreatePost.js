@@ -20,7 +20,7 @@ function CreatePost() {
   });
 
   const onSubmit = (data) => {
-    axios.post("http://192.168.2.7:3001/posts", data).then((res) => {
+    axios.post("http://192.168.3.253:3001/posts", data).then((res) => {
       navigate("/");
     });
   };
